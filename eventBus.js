@@ -6,10 +6,10 @@ const subscribe = (event, callback) => {
 };
 
 const unsubscribe = (event, callback) => {
-  const eventRef = window.events[event];
-  if (!eventRef) return;
-  const listenerIndex = eventRef.findIndex((cb) => cb === callback);
-  if (listenerIndex >= 0) eventRef.splice(listenerIndex, 1);
+  if (!window.events[event]) return;
+  const listenerIndex = window.events[event].findIndex((cb) => cb === callback);
+  if (listenerIndex >= 0) window.events[event].splice(listenerIndex, 1);
+  if (!window.events[event].length) delete window.events[event];
 };
 
 const dispatch = (event, payload) => {
